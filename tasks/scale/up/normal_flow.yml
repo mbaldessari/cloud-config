@@ -12,6 +12,13 @@
 - name: generate instackenv file
   include_tasks: generate_instackenv.yml
 
+- name: (bandini) Fix the instackenv when scaling up (horribly)
+  shell: |
+    source ~/stackrc
+    cd ~
+    openstack overcloud generate fencing "{{ instackenv_file_name }}" --output /home/stack/fence-newnodes.yaml
+    sed -e '1,/devices:/ d' /home/stack/fence-newnodes.yaml >> /home/stack/fencing.yaml
+
 - name: register nodes to instack
   shell: |
       source ~/stackrc
