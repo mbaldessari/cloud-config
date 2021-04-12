@@ -16,7 +16,7 @@
   shell: |
     source ~/stackrc
     cd ~
-    openstack overcloud generate fencing {{ instackenv_file_name }} --output /home/stack/fence-newnodes.yaml
+    openstack overcloud generate fencing {{ instackenv_file_name }} --output /home/stack/fence-newnodes.yaml > fence-scale.log 2>&1
     sed -e '1,/devices:/ d' /home/stack/fence-newnodes.yaml >> /home/stack/fencing.yaml
 
 - name: register nodes to instack
