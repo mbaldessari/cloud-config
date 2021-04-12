@@ -5,7 +5,7 @@ overcloud_deploy_script: "~/overcloud_deploy.sh"
 # new instackenv file
 instackenv_file_name: "~/newnodes.json"
 # vbmc start port
-vbmc_start_port: 6230
+vbmc_start_port: 6250
 # undercloud keys
 local_undercloud_pubkey: "{{ inventory_dir }}/id_rsa_undercloud.pub"
 default_privatekey: "~/.ssh/id_rsa"
