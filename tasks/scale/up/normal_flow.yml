@@ -1,7 +1,21 @@
+- name: Set vbmc start port
+  shell: |
+    set -e
+    cd /home/stack
+    source ~/.virtualenvs/vbmc/bin/activate
+    port=$(vbmc list -c Port -f value | sort -n -r | head -n1)
+    echo $(( port + 1 ))
+  register: vbmc_port_output
+
+- name: Set fact for vbmc_start_port
+  set_fact:
+    vbmc_max_port: vbmc_port_output.stdout
+
 - include_role:
       name: vbmc
   vars:
       vbmc_nodes: "{{ install.scale.nodes }}"
+      vbmc_start_port: "{{ vbmc_max_port }}"
   when: undercloud_version | openstack_release >= 11
 
 - name: discover provsion network name
