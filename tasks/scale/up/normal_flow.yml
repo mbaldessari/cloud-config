@@ -9,13 +9,13 @@
 
 - name: Set fact for vbmc_start_port
   set_fact:
-    vbmc_max_port: "{{ vbmc_port_output.stdout | int }}"
+    vbmc_max_port: "{{ vbmc_port_output.stdout }}"
 
 - include_role:
       name: vbmc
   vars:
       vbmc_nodes: "{{ install.scale.nodes }}"
-      vbmc_start_port: "{{ vbmc_max_port }}"
+      vbmc_start_port: "{{ vbmc_max_port | str }}"
   when: undercloud_version | openstack_release >= 11
 
 - name: discover provsion network name
